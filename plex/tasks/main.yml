@@ -1,0 +1,49 @@
+---
+
+ - name: Setup the Debian repository for Plex
+   apt_repository: repo="deb http://shell.ninthgate.se/packages/debian squeeze main" state=present
+     validate_certs=no 
+
+
+ - name: Install the Ubuntu Plex Media Server prerequisites.
+   apt: pkg={{ item }} state=present
+   with_items:
+     - avahi-daemon
+     - avahi-utils
+     - bind9-host
+     - dbus
+     - geoip-database
+     - libapparmor1
+     - libavahi-client3
+     - libavahi-common-data
+     - libavahi-common3
+     - libavahi-core7
+     - libbind9-80
+     - libdaemon0
+     - libdns88
+     - libgeoip1
+     - libglib2.0-0
+     - libglib2.0-data
+     - libisc84
+     - libisccc80
+     - libisccfg82
+     - liblwres80
+     - libnss-mdns
+     - libpam-systemd
+     - libsystemd-daemon0
+     - libsystemd-login0
+     - libxml2
+     - sgml-base
+     - shared-mime-info
+     - systemd
+     - xml-core
+     - cifs-utils
+
+ - name: Install the Ubuntu Plex Media Server package.
+   apt: name=plexmediaserver force=yes state=present
+
+ - name: Add mount points for the media
+   mount: name={{ item.name }} src={{ item.src }} fstype=cifs opts=ro,guest,_netdev state=mounted
+   with_items: 
+      - { name: "/mnt/blob", src: "//blob/Volume_2" }
+

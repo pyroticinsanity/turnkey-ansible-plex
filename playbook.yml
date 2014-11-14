@@ -1,0 +1,4 @@
+- hosts: plex
+  remote_user: root
+  roles:
+    - { role: plex }
