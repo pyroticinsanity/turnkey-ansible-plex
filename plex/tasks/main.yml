@@ -43,7 +43,8 @@
    apt: name=plexmediaserver force=yes state=present
 
  - name: Add mount points for the media
-   mount: name={{ item.name }} src={{ item.src }} fstype=cifs opts=ro,guest,_netdev state=mounted
-   with_items: 
-      - { name: "/mnt/blob", src: "//blob/Volume_2" }
+   mount: name={{ item.name }} src={{ item.src }} fstype=cifs opts=ro,guest,auto state=mounted
+   with_items: mount_list
 
+ - name: Fix up Debian to automount samba shares on startup
+   lineinfile: dest=/etc/default/rcS line="ASYNCMOUNTNFS=no"

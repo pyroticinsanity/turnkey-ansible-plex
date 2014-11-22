@@ -1,0 +1,6 @@
+---
+mount_list: 
+ - { name: "/mnt/blob", src: "//blob/Volume_2" }
+ - { name: "/mnt/colossus", src: "//colossus/Multimedia" }
+
+
